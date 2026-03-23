@@ -272,6 +272,10 @@ export default function App() {
           .stats-row { grid-template-columns: 1fr 1fr !important; }
           .footer-cols { grid-template-columns: 1fr !important; }
           .reviews-grid { grid-template-columns: 1fr !important; }
+          .textsFooter{flex-direction:column}
+           .footer{flex-direction:column}
+          .nav-link{color:red ,font-size: 22px !important;}
+            .glass{width:380px}
         }
         @media(max-width:425px) {
           .container { padding: 0 20px; }
@@ -285,7 +289,7 @@ export default function App() {
           .btn-outline { padding: 12px 20px !important; font-size: 13px !important; }
           .textsFooter{flex-direction:column}
           .nav-link{color:red ,font-size: 22px !important;}
-          .glass{width:370px}
+          .glass{width:335px}
         }
         @media(max-width:375px) {
         .glass{padding:"101px 22px", display:"flex", gap:16, alignItems:"center"}
@@ -296,10 +300,11 @@ export default function App() {
           header { padding: 0 16px !important; }
           section { padding-left: 16px !important; padding-right: 16px !important; }
           .badge { font-size: 10px !important; padding: 5px 14px !important; }
-          .glass{width:325px}
           .textsFooter{flex-direction:column}
           .nav-link{color:red ,font-size: 22px !important;}
-        }
+          .divSudeb {width:100px} 
+          .glass{width:335px}
+      }
         @media(max-width:320px) {
           .container { padding: 0 12px; }
           .hero-title { font-size: 24px !important; }
