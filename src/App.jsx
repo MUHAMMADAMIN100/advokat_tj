@@ -202,7 +202,7 @@ export default function App() {
         .btn-gold:hover::after { transform: translateX(100%); }
 
         .btn-outline {
-          background: rgba(200,169,110,0.07); color: #c8a96e;
+          background: rgba(200,169,110,0.07); color: rgba(255, 166, 0, 0.9);
           border: 1px solid rgba(200,169,110,0.25);
           padding: 12px 28px; border-radius: 12px;
           font-weight: 600; font-size: 14px; font-family: 'Roboto', sans-serif;
@@ -241,7 +241,7 @@ export default function App() {
         .spin-ring { animation: spin 30s linear infinite; }
         .floating { animation: float 7s ease-in-out infinite; }
         .shimmer-gold {
-          background: linear-gradient(90deg, #c8a96e, #f5e4a0, #c8a96e, #f5e4a0, #c8a96e);
+          background: linear-gradient(90deg, rgba(255, 166, 0, 0.9), #f5e4a0, #d9981e, rgba(255, 166, 0, 0.9), #c8a96e);
           background-size: 200% auto;
           -webkit-background-clip: text; -webkit-text-fill-color: transparent;
           background-clip: text; animation: shimmer 5s linear infinite;
@@ -251,7 +251,7 @@ export default function App() {
         .badge {
           display: inline-flex; align-items: center; gap: 8px;
           background: linear-gradient(135deg, rgba(200,169,110,0.12), rgba(200,169,110,0.04));
-          border: 1px solid rgba(200,169,110,0.28); color: #c8a96e;
+          border: 1px solid rgba(200,169,110,0.28); color: rgba(255, 166, 0, 0.9);
           padding: 6px 18px; border-radius: 30px;
           font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
           margin-bottom: 18px; backdrop-filter: blur(8px);
@@ -327,8 +327,8 @@ export default function App() {
           section { padding-left: 15px !important; padding-right: 15px !important; }
           .badge { font-size: 10px !important; padding: 5px 14px !important; }
           .divSudeb {width:100%} 
-           .footer{display:block !important;gap:1px !important;}
-           .textsFooter{display:flex;gap:1px;flex-wrap: wrap; margin-top:10px}
+          .footer{display:block !important;gap:1px !important;}
+          .textsFooter{display:flex;gap:1px;flex-wrap: wrap; margin-top:10px}
           .glass{width:100%; max-width:335px; margin: 0 auto;}
         }
         @media(max-width:320px) {
@@ -357,14 +357,14 @@ export default function App() {
             <div style={{ width: 38, height: 38, borderRadius: 10, background: "linear-gradient(135deg,#c8a96e,#e8d090)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 19, boxShadow: "0 4px 18px rgba(200,169,110,0.3)" }}>⚖️</div>
             <div>
               <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 19, fontWeight: 700, color: "#1a1510", lineHeight: 1.1 }}>Хамзабек Хакимзода</div>
-              <div style={{ fontSize: 9, color: "#a08050", letterSpacing: 2, textTransform: "uppercase", fontWeight: 600 }}>Адвокат · Таджикистан</div>
+              <div style={{ fontSize: 9, color: "rgba(255, 166, 0, 0.9)", letterSpacing: 2, textTransform: "uppercase", fontWeight: 600 }}>Адвокат · Таджикистан</div>
             </div>
           </div>
           <nav className="d-none-mob" style={{ display: "flex", gap: 34 }}>
             {NAV.map(n => <span key={n.id} className="nav-link" onClick={() => scrollTo(n.id)}>{n.label}</span>)}
           </nav>
           <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
-            <a href="tel:+992000000000" className="d-none-mob" style={{ color: "#c8a96e", textDecoration: "none", fontSize: 14, fontWeight: 600 }}>📞 +992 00 000 00 00</a>
+            <a href="tel:+992000000000" className="d-none-mob" style={{ color: "rgba(255, 166, 0, 0.9)", textDecoration: "none", fontSize: 14, fontWeight: 600 }}>📞 +992 00 000 00 00</a>
             <button className="btn-gold" style={{ padding: "10px 22px", fontSize: 13 }} onClick={openModal}>Записаться</button>
           </div>
         </div>
@@ -397,7 +397,7 @@ export default function App() {
               <Reveal delay={0.15}>
                 <div style={{ display: "flex", gap: 10, flexWrap: "wrap", margin: "18px 0 28px" }}>
                   {["Адвокат", "Юрист", "Pro-bono"].map(t => (
-                    <span key={t} style={{ background: "rgba(200,169,110,0.1)", border: "1px solid rgba(200,169,110,0.22)", color: "#c8a96e", padding: "5px 14px", borderRadius: 20, fontSize: 12, fontWeight: 600 }}>{t}</span>
+                    <span key={t} style={{ background: "rgba(200,169,110,0.1)", border: "1px solid rgba(200,169,110,0.22)", color: "rgba(255, 166, 0, 0.9)", padding: "5px 14px", borderRadius: 20, fontSize: 12, fontWeight: 600 }}>{t}</span>
                   ))}
                 </div>
               </Reveal>
@@ -422,7 +422,7 @@ export default function App() {
                 </div>
               </Reveal>
             </div>
-
+                  
             <div className="floating" style={{ flex: "0 0 auto", position: "relative" }}>
               <Reveal direction="right" delay={0.2}>
                 <div style={{ position: "relative" }}>
@@ -459,7 +459,7 @@ export default function App() {
               <Reveal>
                 <span className="badge">👤 Обо мне</span>
                 <h2 className="sec-title" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 44, fontWeight: 700, color: "#1a1510", marginBottom: 24, lineHeight: 1.2 }}>
-                  О <span style={{ background: "linear-gradient(135deg,#c8a96e,#f0d898)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>специалисте</span>
+                  О <span style={{ background: "rgba(255, 166, 0, 0.9)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>специалисте</span>
                 </h2>
                 <div className="gold-bar" />
                 <p style={{ color: "rgba(20,15,10,0.55)", fontSize: 16, lineHeight: 1.9, marginBottom: 20 }}>
@@ -517,7 +517,7 @@ export default function App() {
           <Reveal style={{ textAlign: "center", marginBottom: 64 }}>
             <span className="badge">📋 Практика</span>
             <h2 className="sec-title" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 44, fontWeight: 700, color: "#1a1510", lineHeight: 1.2 }}>
-              Области <span style={{ background: "linear-gradient(135deg,#c8a96e,#f0d898)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>специализации</span>
+              Области <span style={{  background: "rgba(255, 166, 0, 0.9)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>специализации</span>
             </h2>
             <p style={{ color: "rgba(20,15,10,0.35)", fontSize: 16, marginTop: 12 }}>Профессиональная помощь в ключевых отраслях права</p>
           </Reveal>
@@ -544,7 +544,7 @@ export default function App() {
           <Reveal style={{ textAlign: "center", marginBottom: 60 }}>
             <span className="badge">💬 Отзывы</span>
             <h2 className="sec-title" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 44, fontWeight: 700, color: "#1a1510", lineHeight: 1.2 }}>
-              Говорят <span style={{ background: "linear-gradient(135deg,#c8a96e,#f0d898)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>клиенты</span>
+              Говорят <span style={{  background: "rgba(255, 166, 0, 0.9)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>клиенты</span>
             </h2>
           </Reveal>
           <div className="reviews-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3fr)", gap: 24 }}>
@@ -576,7 +576,7 @@ export default function App() {
         <div style={{ maxWidth: 760, margin: "0 auto" }}>
           <Reveal style={{ textAlign: "center", marginBottom: 60 }}>
             <h2 className="sec-title" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 44, fontWeight: 700, color: "#1a1510", lineHeight: 1.2 }}>
-              Частые <span style={{ background: "linear-gradient(135deg,#c8a96e,#f0d898)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>вопросы</span>
+              Частые <span style={{ background: "rgba(255, 166, 0, 0.9)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>вопросы</span>
             </h2>
           </Reveal>
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
@@ -605,7 +605,7 @@ export default function App() {
           <Reveal style={{ textAlign: "center", marginBottom: 64 }}>
             <span className="badge">📨 Запись</span>
             <h2 className="sec-title" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 44, fontWeight: 700, color: "#1a1510", lineHeight: 1.2 }}>
-              Записаться на <span style={{ background: "linear-gradient(135deg,#c8a96e,#f0d898)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>консультацию</span>
+              Записаться на <span style={{  background: "rgba(255, 166, 0, 0.9)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>консультацию</span>
             </h2>
             <p style={{ color: "rgba(20,15,10,0.35)", fontSize: 16, marginTop: 12 }}>Оставьте заявку — свяжемся в течение 30 минут</p>
           </Reveal>
