@@ -79,7 +79,7 @@ function CounterStat({ val, suffix, label, delay }) {
   const count = useCounter(val, inView);
   return (
     <div ref={ref} style={{ opacity: inView ? 1 : 0, transform: inView ? "none" : "translateY(20px)", transition: `all 0.6s ease ${delay}s`, textAlign: "center" }}>
-      <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 52, fontWeight: 700, color: "#c8a96e", lineHeight: 1 }}>{count}{suffix}</div>
+      <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 52, fontWeight: 700, color: "#c8a96e", lineHeight: 1.2 }}>{count}{suffix}</div>
       <div style={{ color: "rgba(20,15,10,0.4)", fontSize: 12, marginTop: 6, letterSpacing: 1.5, textTransform: "uppercase" }}>{label}</div>
     </div>
   );
@@ -116,7 +116,6 @@ function ParticleCanvas() {
   return <canvas ref={canvasRef} style={{ position: "absolute", inset: 0, pointerEvents: "none", zIndex: 0 }} />;
 }
 
-
 const sendTelegramMessage = async (name, phone, desc) => {
   const BOT_TOKEN = "8681662933:AAFXjgejgixZ91iJ081huW-mx4jYgJ9m8q8";
   const CHAT_ID = "7303227515";
@@ -130,6 +129,19 @@ const sendTelegramMessage = async (name, phone, desc) => {
   } catch (err) { console.error("Telegram error:", err); }
 };
 
+// Модальное окно
+function Modal({ isOpen, onClose, children }) {
+  if (!isOpen) return null;
+  return (
+    <div onClick={onClose} style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.6)", zIndex: 9999, display: "flex", alignItems: "center", justifyContent: "center", padding: 15, backdropFilter: "blur(8px)" }}>
+      <div onClick={e => e.stopPropagation()} style={{ background: "#fff", borderRadius: 24, maxWidth: 540, width: "100%", maxHeight: "90vh", overflowY: "auto", position: "relative" }}>
+        <button onClick={onClose} style={{ position: "absolute", top: 20, right: 20, background: "rgba(20,15,10,0.08)", border: "none", width: 36, height: 36, borderRadius: "50%", cursor: "pointer", fontSize: 20, color: "rgba(20,15,10,0.6)", display: "flex", alignItems: "center", justifyContent: "center", transition: "all 0.2s" }} onMouseEnter={e => { e.currentTarget.style.background = "rgba(20,15,10,0.15)"; }} onMouseLeave={e => { e.currentTarget.style.background = "rgba(20,15,10,0.08)"; }}>×</button>
+        {children}
+      </div>
+    </div>
+  );
+}
+
 export default function App() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -137,6 +149,7 @@ export default function App() {
   const [form, setForm] = useState({ name: "", phone: "", desc: "" });
   const [submitted, setSubmitted] = useState(false);
   const [mousePos, setMousePos] = useState({ x: -999, y: -999 });
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -159,6 +172,12 @@ export default function App() {
     { label: "Отзывы", id: "reviews" },
     { label: "Контакты", id: "contact" },
   ];
+
+  const openModal = () => {
+    setModalOpen(true);
+    setSubmitted(false);
+    setForm({ name: "", phone: "", desc: "" });
+  };
 
   return (
     <div style={{ fontFamily: "'Roboto', sans-serif", background: "#ffffff", color: "#1a1510", overflowX: "hidden" }}>
@@ -217,10 +236,7 @@ export default function App() {
         .input-f::placeholder { color: rgba(20,15,10,0.35); }
 
         @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-16px)} }
-        @keyframes pulse-r { 0%{transform:scale(1);opacity:.5} 100%{transform:scale(1.9);opacity:0} }
-        @keyframes shimmer { 0%{background-position:-200% 0} 100%{background-position:200% 0} }
         @keyframes spin { from{transform:rotate(0)} to{transform:rotate(360deg)} }
-        @keyframes fadein { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:none} }
 
         .spin-ring { animation: spin 30s linear infinite; }
         .floating { animation: float 7s ease-in-out infinite; }
@@ -230,6 +246,8 @@ export default function App() {
           -webkit-background-clip: text; -webkit-text-fill-color: transparent;
           background-clip: text; animation: shimmer 5s linear infinite;
         }
+        @keyframes shimmer { 0%{background-position:-200% 0} 100%{background-position:200% 0} }
+        
         .badge {
           display: inline-flex; align-items: center; gap: 8px;
           background: linear-gradient(135deg, rgba(200,169,110,0.12), rgba(200,169,110,0.04));
@@ -241,10 +259,16 @@ export default function App() {
         .gold-bar { width: 48px; height: 2px; background: linear-gradient(90deg,#c8a96e,transparent); border-radius:1px; margin-bottom:18px; }
         .verified { display:inline-flex; align-items:center; gap:5px; background:rgba(126,200,160,0.1); border:1px solid rgba(126,200,160,0.2); border-radius:8px; padding:3px 10px; font-size:11px; color:#7ec8a0; font-weight:600; }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; width: 100%; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; width: 100%; }
+
+        .textsFooter{
+        display: flex;
+        gap: 28px;
+        flex-wrap: wrap;
+        }
         
         @media(max-width:1024px) {
-          .container { padding: 0 28px; }
+          .container { padding: 0 15px; }
           .hero-photo { width: 280px !important; height: 360px !important; }
           .spec-grid { grid-template-columns: repeat(3,1fr) !important; }
           .hero-wrap { gap: 50px !important; }
@@ -258,12 +282,12 @@ export default function App() {
           .d-none-mob { display: none !important; }
         }
         @media(max-width:768px) {
-          .container { padding: 0 24px; }
+          .container { padding: 0 15px; }
           .hero-title { font-size: 48px !important; }
           .sec-title { font-size: 38px !important; }
           .reviews-grid { grid-template-columns: 1fr 1fr !important; }
-          header { padding: 0 24px !important; }
-          section { padding-left: 24px !important; padding-right: 24px !important; }
+          header { padding: 0 15px !important; }
+          section { padding-left: 15px !important; padding-right: 15px !important; }
         }
         @media(max-width:580px) {
           .spec-grid { grid-template-columns: 1fr !important; }
@@ -272,53 +296,54 @@ export default function App() {
           .stats-row { grid-template-columns: 1fr 1fr !important; }
           .footer-cols { grid-template-columns: 1fr !important; }
           .reviews-grid { grid-template-columns: 1fr !important; }
-          .textsFooter{flex-direction:column}
-           .footer{flex-direction:column}
-          .nav-link{color:red ,font-size: 22px !important;}
-            .glass{width:380px}
+          {/* .textsFooter{flex-direction:column}
+          .footer{flex-direction:column} */}
+
+          .footer{display:block !important;gap:1px !important;}
+          .textsFooter{display:flex;flex-direction:column;gap:1px;margin-top:10px}
+
+          .glass{width:100%; max-width:380px; margin: 0 auto;}
         }
         @media(max-width:425px) {
-          .container { padding: 0 20px; }
+          .container { padding: 0 15px; }
           .hero-title { font-size: 32px !important; }
           .sec-title { font-size: 28px !important; }
           .hero-photo { width: 220px !important; height: 300px !important; }
-          header { padding: 0 20px !important; }
-          section { padding-left: 20px !important; padding-right: 20px !important; }
+          header { padding: 0 15px !important; }
+          section { padding-left: 15px !important; padding-right: 15px !important; }
           .stats-row { grid-template-columns: 1fr !important; }
           .btn-gold { padding: 12px 20px !important; font-size: 13px !important; }
           .btn-outline { padding: 12px 20px !important; font-size: 13px !important; }
-          .textsFooter{flex-direction:column}
-          .nav-link{color:red ,font-size: 22px !important;}
-          .glass{width:335px}
+          .footer{display:block !important;gap:1px !important;}
+          .textsFooter{display:flex;gap:1px;flex-wrap: wrap; margin-top:10px}
+          .glass{width:100%; max-width:335px; margin: 0 auto;}
         }
         @media(max-width:375px) {
-        .glass{padding:"101px 22px", display:"flex", gap:16, alignItems:"center"}
-          .container { padding: 0 16px; }
+          .container { padding: 0 15px; }
           .hero-title { font-size: 28px !important; }
           .sec-title { font-size: 26px !important; }
           .hero-photo { width: 200px !important; height: 280px !important; }
-          header { padding: 0 16px !important; }
-          section { padding-left: 16px !important; padding-right: 16px !important; }
+          header { padding: 0 15px !important; }
+          section { padding-left: 15px !important; padding-right: 15px !important; }
           .badge { font-size: 10px !important; padding: 5px 14px !important; }
-          .textsFooter{flex-direction:column}
-          .nav-link{color:red ,font-size: 22px !important;}
-          .divSudeb {width:100px} 
-          .glass{width:335px}
-      }
+          .divSudeb {width:100%} 
+           .footer{display:block !important;gap:1px !important;}
+           .textsFooter{display:flex;gap:1px;flex-wrap: wrap; margin-top:10px}
+          .glass{width:100%; max-width:335px; margin: 0 auto;}
+        }
         @media(max-width:320px) {
-          .container { padding: 0 12px; }
+          .container { padding: 0 15px; }
           .hero-title { font-size: 24px !important; }
           .sec-title { font-size: 22px !important; }
           .hero-photo { width: 180px !important; height: 260px !important; }
-          header { padding: 0 12px !important; }
-          section { padding: 60px 12px !important; }
+          .header { padding: 0 15px !important; }
+          section { padding: 60px 15px !important; }
           .btn-gold { padding: 10px 16px !important; font-size: 12px !important; }
           .btn-outline { padding: 10px 16px !important; font-size: 12px !important; }
-          .divSudeb{width:20px}
-          .glass{width:295px}
-          .footer{}
-          .textsFooter{flex-direction:column}
-          .nav-link{color:red ,font-size: 22px !important;}
+          .divSudeb{width:100%}
+          .glass{width:100%; max-width:295px; margin: 0 auto;}
+          .textsFooter{gap:1px; margin-top:10px;}
+          .footer{display:block !important;gap:1px !important;}
         }
       `}</style>
 
@@ -326,13 +351,13 @@ export default function App() {
       <div style={{ position: "fixed", pointerEvents: "none", zIndex: 9999, width: 280, height: 280, borderRadius: "50%", background: "radial-gradient(circle,rgba(200,169,110,0.055) 0%,transparent 70%)", transform: `translate(${mousePos.x - 140}px,${mousePos.y - 140}px)`, transition: "transform 0.08s" }} />
 
       {/* ══ HEADER ══ */}
-      <header style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, background: scrolled ? "rgba(255,255,255,0.95)" : "transparent", backdropFilter: scrolled ? "blur(20px)" : "none", borderBottom: scrolled ? "1px solid rgba(20,15,10,0.06)" : "none", transition: "all 0.45s", padding: "0 32px" }}>
+      <header style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, background: scrolled ? "rgba(255,255,255,0.95)" : "transparent", backdropFilter: scrolled ? "blur(20px)" : "none", borderBottom: scrolled ? "1px solid rgba(20,15,10,0.06)" : "none", transition: "all 0.45s", padding: "0 15px" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", height: 70 }}>
           <div onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} style={{ display: "flex", alignItems: "center", gap: 12, cursor: "pointer" }}>
             <div style={{ width: 38, height: 38, borderRadius: 10, background: "linear-gradient(135deg,#c8a96e,#e8d090)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 19, boxShadow: "0 4px 18px rgba(200,169,110,0.3)" }}>⚖️</div>
             <div>
               <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 19, fontWeight: 700, color: "#1a1510", lineHeight: 1.1 }}>Хамзабек Хакимзода</div>
-              <div style={{ fontSize: 9, color: "rgba(200,169,110,0.7)", letterSpacing: 2, textTransform: "uppercase" }}>Адвокат · Таджикистан</div>
+              <div style={{ fontSize: 9, color: "#a08050", letterSpacing: 2, textTransform: "uppercase", fontWeight: 600 }}>Адвокат · Таджикистан</div>
             </div>
           </div>
           <nav className="d-none-mob" style={{ display: "flex", gap: 34 }}>
@@ -340,7 +365,7 @@ export default function App() {
           </nav>
           <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
             <a href="tel:+992000000000" className="d-none-mob" style={{ color: "#c8a96e", textDecoration: "none", fontSize: 14, fontWeight: 600 }}>📞 +992 00 000 00 00</a>
-            <button className="btn-gold" style={{ padding: "10px 22px", fontSize: 13 }} onClick={() => scrollTo("contact")}>Записаться</button>
+            <button className="btn-gold" style={{ padding: "10px 22px", fontSize: 13 }} onClick={openModal}>Записаться</button>
           </div>
         </div>
       </header>
@@ -352,21 +377,18 @@ export default function App() {
         <div style={{ position: "absolute", bottom: "5%", left: "-10%", width: 400, height: 400, borderRadius: "50%", background: "rgba(200,169,110,0.07)", filter: "blur(70px)", pointerEvents: "none" }} />
         <ParticleCanvas />
 
-        {/* Rotating ornament */}
         <div className="spin-ring d-none-mob" style={{ position: "absolute", right: "5%", top: "50%", transform: "translateY(-50%)", width: 500, height: 500, borderRadius: "50%", border: "1px dashed rgba(180,140,60,0.18)", pointerEvents: "none" }}>
           <div style={{ position: "absolute", inset: 40, borderRadius: "50%", border: "1px solid rgba(180,140,60,0.12)" }} />
         </div>
 
-        <div style={{ maxWidth: 1200, margin: "0 auto", padding: "80px 32px", width: "100%", position: "relative", zIndex: 1 }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto", padding: "80px 15px", width: "100%", position: "relative", zIndex: 1 }}>
           <div className="hero-wrap" style={{ display: "flex", alignItems: "center", gap: 72 }}>
-
-            {/* Left */}
             <div style={{ flex: 1, minWidth: 0 }}>
               <Reveal>
                 <span className="badge">⚖️ Адвокат · г. Душанбе · 26 лет стажа</span>
               </Reveal>
               <Reveal delay={0.1}>
-                <h1 className="hero-title" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 60, fontWeight: 700, lineHeight: 1.1, letterSpacing: -1, marginBottom: 8 }}>
+                <h1 className="hero-title" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 60, fontWeight: 700, lineHeight: 1.2, letterSpacing: -1, marginBottom: 8 }}>
                   Мирзовалиен<br />
                   <span className="shimmer-gold">Хамзабек</span>
                   <br />Хакимзода
@@ -386,12 +408,12 @@ export default function App() {
               </Reveal>
               <Reveal delay={0.25}>
                 <div style={{ display: "flex", gap: 16, flexWrap: "wrap", marginBottom: 44 }}>
-                  <button className="btn-gold" style={{ fontSize: 15 }} onClick={() => scrollTo("contact")}>Записаться на консультацию →</button>
+                  <button className="btn-gold" style={{ fontSize: 15 }} onClick={openModal}>Записаться на консультацию →</button>
                   <button className="btn-outline" onClick={() => scrollTo("about")}>Узнать подробнее</button>
                 </div>
               </Reveal>
               <Reveal delay={0.3}>
-                <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
                   {LANGS.map(l => (
                     <div key={l.name} style={{ display: "flex", alignItems: "center", gap: 6, background: "rgba(20,15,10,0.05)", border: "1px solid rgba(20,15,10,0.08)", padding: "6px 14px", borderRadius: 20, fontSize: 13, color: "rgba(20,15,10,0.6)" }}>
                       <span>{l.flag}</span> {l.name}
@@ -401,25 +423,21 @@ export default function App() {
               </Reveal>
             </div>
 
-            {/* Photo */}
             <div className="floating" style={{ flex: "0 0 auto", position: "relative" }}>
               <Reveal direction="right" delay={0.2}>
                 <div style={{ position: "relative" }}>
-                  {/* Glow ring */}
                   <div style={{ position: "absolute", inset: -3, borderRadius: 24, background: "linear-gradient(135deg,rgba(200,169,110,0.5),rgba(200,169,110,0.1),rgba(200,169,110,0.5))", zIndex: -1, filter: "blur(1px)" }} />
                   <div style={{ position: "absolute", inset: -12, borderRadius: 28, border: "1px solid rgba(200,169,110,0.15)", zIndex: -1 }} />
                   <div style={{ position: "absolute", inset: -24, borderRadius: 32, border: "1px solid rgba(200,169,110,0.07)", zIndex: -1 }} />
 
                   <img className="hero-photo" src={PHOTO} alt="Хамзабек Хакимзода" style={{ width: 300, height: 380, objectFit: "cover", objectPosition: "center top", borderRadius: 22, display: "block", filter: "contrast(1.05) brightness(1.02)" }} />
 
-                  {/* Rating badge */}
                   <div style={{ position: "absolute", top: 20, right: -20, background: "rgba(255,255,255,0.95)", border: "1px solid rgba(200,169,110,0.3)", backdropFilter: "blur(12px)", borderRadius: 14, padding: "10px 16px", textAlign: "center" }}>
                     <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 28, fontWeight: 700, color: "#c8a96e", lineHeight: 1 }}>5.0</div>
                     <div style={{ color: "#c8a96e", fontSize: 14, margin: "2px 0" }}>★★★★★</div>
                     <div style={{ color: "rgba(20,15,10,0.35)", fontSize: 11 }}>Рейтинг</div>
                   </div>
 
-                  {/* Experience badge */}
                   <div style={{ position: "absolute", bottom: 24, left: -24, background: "rgba(255,255,255,0.95)", border: "1px solid rgba(200,169,110,0.2)", backdropFilter: "blur(12px)", borderRadius: 14, padding: "12px 18px" }}>
                     <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 30, fontWeight: 700, color: "#c8a96e", lineHeight: 1 }}>26+</div>
                     <div style={{ color: "rgba(20,15,10,0.45)", fontSize: 11, marginTop: 3 }}>лет практики</div>
@@ -433,14 +451,14 @@ export default function App() {
       </section>
 
       {/* ══ ABOUT ══ */}
-      <section id="about" style={{ background: "#ffffff", padding: "100px 32px", position: "relative" }}>
+      <section id="about" style={{ background: "#ffffff", padding: "100px 15px", position: "relative" }}>
         <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: 700, height: 400, background: "radial-gradient(ellipse,rgba(200,169,110,0.08),transparent 70%)", pointerEvents: "none" }} />
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <div style={{ display: "flex", gap: 72, alignItems: "center", flexWrap: "wrap" }}>
             <div style={{ flex: 1, minWidth: 280 }}>
               <Reveal>
                 <span className="badge">👤 Обо мне</span>
-                <h2 className="sec-title" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 44, fontWeight: 700, color: "#1a1510", marginBottom: 24 }}>
+                <h2 className="sec-title" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 44, fontWeight: 700, color: "#1a1510", marginBottom: 24, lineHeight: 1.2 }}>
                   О <span style={{ background: "linear-gradient(135deg,#c8a96e,#f0d898)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>специалисте</span>
                 </h2>
                 <div className="gold-bar" />
@@ -457,7 +475,7 @@ export default function App() {
                 </div>
               </Reveal>
             </div>
-            <div className="divSudeb" style={{ flex: "0 0 auto", display: "flex", flexDirection: "column", gap: 16, }}>
+            <div className="divSudeb" style={{ flex: "0 0 auto", display: "flex", flexDirection: "column", gap: 16, width: "100%", maxWidth: 320 }}>
               {[
                 { icon: "🏛️", title: "Судебное представительство", desc: "Представление интересов во всех инстанциях" },
                 { icon: "🤝", title: "Legal Aid & Pro-bono", desc: "Помощь лицам без возможности оплаты услуг" },
@@ -465,7 +483,7 @@ export default function App() {
                 { icon: "💬", title: "3 языка", desc: "Русский, таджикский, английский" },
               ].map((item, i) => (
                 <Reveal key={i} delay={i * 0.07} direction="right">
-                  <div className="glass" style={{ padding: "18px 22px", display: "flex", gap: 16, alignItems: "center", minWidth: 300 }}>
+                  <div className="glass" style={{ padding: "18px 22px", display: "flex", gap: 16, alignItems: "center" }}>
                     <div style={{ width: 44, height: 44, borderRadius: 12, background: "linear-gradient(135deg,rgba(200,169,110,0.15),rgba(200,169,110,0.05))", border: "1px solid rgba(200,169,110,0.18)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, flexShrink: 0 }}>{item.icon}</div>
                     <div>
                       <div style={{ color: "#1a1510", fontWeight: 600, fontSize: 14, marginBottom: 3 }}>{item.title}</div>
@@ -480,7 +498,7 @@ export default function App() {
       </section>
 
       {/* ══ STATS ══ */}
-      <section id="stats" style={{ background: "linear-gradient(135deg,#f0ece4,#ece8df)", padding: "80px 32px", position: "relative", overflow: "hidden" }}>
+      <section id="stats" style={{ background: "linear-gradient(135deg,#f0ece4,#ece8df)", padding: "80px 15px", position: "relative", overflow: "hidden" }}>
         <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 60% 80% at 50% 50%,rgba(200,169,110,0.12),transparent)", pointerEvents: "none" }} />
         <div style={{ maxWidth: 1000, margin: "0 auto" }}>
           <div className="stats-row" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 32, position: "relative", zIndex: 1 }}>
@@ -494,11 +512,11 @@ export default function App() {
       </section>
 
       {/* ══ SPECIALIZATIONS ══ */}
-      <section id="specs" style={{ background: "#f8f5ef", padding: "100px 32px" }}>
+      <section id="specs" style={{ background: "#f8f5ef", padding: "100px 15px" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <Reveal style={{ textAlign: "center", marginBottom: 64 }}>
             <span className="badge">📋 Практика</span>
-            <h2 className="sec-title" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 44, fontWeight: 700, color: "#1a1510" }}>
+            <h2 className="sec-title" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 44, fontWeight: 700, color: "#1a1510", lineHeight: 1.2 }}>
               Области <span style={{ background: "linear-gradient(135deg,#c8a96e,#f0d898)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>специализации</span>
             </h2>
             <p style={{ color: "rgba(20,15,10,0.35)", fontSize: 16, marginTop: 12 }}>Профессиональная помощь в ключевых отраслях права</p>
@@ -521,22 +539,22 @@ export default function App() {
       </section>
 
       {/* ══ REVIEWS ══ */}
-      <section id="reviews" style={{ background: "#ffffff", padding: "100px 32px", position: "relative" }}>
+      <section id="reviews" style={{ background: "#ffffff", padding: "100px 15px", position: "relative" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <Reveal style={{ textAlign: "center", marginBottom: 60 }}>
             <span className="badge">💬 Отзывы</span>
-            <h2 className="sec-title" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 44, fontWeight: 700, color: "#1a1510" }}>
+            <h2 className="sec-title" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 44, fontWeight: 700, color: "#1a1510", lineHeight: 1.2 }}>
               Говорят <span style={{ background: "linear-gradient(135deg,#c8a96e,#f0d898)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>клиенты</span>
             </h2>
           </Reveal>
-          <div className="reviews-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 24 }}>
+          <div className="reviews-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3fr)", gap: 24 }}>
             {REVIEWS.map((r, i) => (
               <Reveal key={i} delay={i * 0.1}>
-                <div className="glass" style={{ padding: "34px 28px" }}>
+                <div className="glass" style={{ padding: "34px 28px", position: "relative" }}>
                   <div style={{ position: "absolute", top: 20, right: 24, fontSize: 70, color: "rgba(200,169,110,0.07)", fontFamily: "Georgia,serif", lineHeight: 1, userSelect: "none" }}>"</div>
                   <div style={{ display: "flex", gap: 2, marginBottom: 18 }}>{"★★★★★".split("").map((s, j) => <span key={j} style={{ color: "#c8a96e", fontSize: 15 }}>{s}</span>)}</div>
                   <p style={{ color: "rgba(20,15,10,0.6)", fontSize: 15, lineHeight: 1.8, marginBottom: 24 }}>"{r.text}"</p>
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                       <div style={{ width: 42, height: 42, borderRadius: "50%", background: `linear-gradient(135deg,#c8a96e,#0d1830)`, display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontWeight: 700, fontSize: 16 }}>{r.name[0]}</div>
                       <div>
@@ -554,11 +572,10 @@ export default function App() {
       </section>
 
       {/* ══ FAQ ══ */}
-      <section style={{ background: "#f8f5ef", padding: "100px 32px" }}>
+      <section style={{ background: "#f8f5ef", padding: "100px 15px" }}>
         <div style={{ maxWidth: 760, margin: "0 auto" }}>
           <Reveal style={{ textAlign: "center", marginBottom: 60 }}>
-            <span className="badge">❓ FAQ</span>
-            <h2 className="sec-title" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 44, fontWeight: 700, color: "#1a1510" }}>
+            <h2 className="sec-title" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 44, fontWeight: 700, color: "#1a1510", lineHeight: 1.2 }}>
               Частые <span style={{ background: "linear-gradient(135deg,#c8a96e,#f0d898)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>вопросы</span>
             </h2>
           </Reveal>
@@ -581,20 +598,19 @@ export default function App() {
       </section>
 
       {/* ══ CONTACT ══ */}
-      <section id="contact" style={{ background: "#ffffff", padding: "100px 32px", position: "relative", overflow: "hidden" }}>
+      <section id="contact" style={{ background: "#ffffff", padding: "100px 15px", position: "relative", overflow: "hidden" }}>
         <div style={{ position: "absolute", top: "40%", left: "50%", transform: "translate(-50%,-50%)", width: 800, height: 800, borderRadius: "50%", background: "radial-gradient(circle,rgba(200,169,110,0.06),transparent 70%)", pointerEvents: "none" }} />
         <div style={{ position: "absolute", top: "20%", right: "-5%", width: 320, height: 320, borderRadius: "50%", background: "rgba(200,169,110,0.08)", filter: "blur(60px)", pointerEvents: "none" }} />
         <div style={{ maxWidth: 1100, margin: "0 auto", position: "relative" }}>
           <Reveal style={{ textAlign: "center", marginBottom: 64 }}>
             <span className="badge">📨 Запись</span>
-            <h2 className="sec-title" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 44, fontWeight: 700, color: "#1a1510" }}>
+            <h2 className="sec-title" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 44, fontWeight: 700, color: "#1a1510", lineHeight: 1.2 }}>
               Записаться на <span style={{ background: "linear-gradient(135deg,#c8a96e,#f0d898)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>консультацию</span>
             </h2>
             <p style={{ color: "rgba(20,15,10,0.35)", fontSize: 16, marginTop: 12 }}>Оставьте заявку — свяжемся в течение 30 минут</p>
           </Reveal>
 
-          <div style={{ display: "flex", gap: 48, flexWrap: "wrap" }}>
-            {/* Contact info */}
+          <div style={{ display: "flex", gap: 48, flexWrap: "wrap", justifyContent: "center" }}>
             <div style={{ flex: "0 0 320px" }}>
               <Reveal direction="left" delay={0.1}>
                 <div className="glass" style={{ padding: "36px 30px" }}>
@@ -633,34 +649,14 @@ export default function App() {
               </Reveal>
             </div>
 
-            {/* Form */}
-            <div style={{ flex: 1, minWidth: 280 }}>
+            <div style={{ flex: "1", minWidth: 280, maxWidth: 600 }}>
               <Reveal delay={0.15}>
-                {submitted ? (
-                  <div style={{ background: "linear-gradient(135deg,rgba(58,138,106,0.15),rgba(58,138,106,0.05))", border: "1px solid rgba(126,200,160,0.2)", borderRadius: 24, padding: "64px 40px", textAlign: "center" }}>
-                    <div style={{ fontSize: 72, marginBottom: 20 }}>✅</div>
-                    <h3 style={{ fontFamily: "'Cormorant Garamond',serif", color: "#7ec8a0", fontSize: 32, marginBottom: 12 }}>Заявка принята!</h3>
-                    <p style={{ color: "rgba(20,15,10,0.45)", fontSize: 16, lineHeight: 1.7 }}>Хамзабек Хакимзода свяжется с вами в ближайшее время. Спасибо!</p>
-                  </div>
-                ) : (
-                  <form onSubmit={async e => { e.preventDefault(); if (form.name && form.phone) { await sendTelegramMessage(form.name, form.phone, form.desc); setSubmitted(true); } }} style={{ background: "linear-gradient(135deg,rgba(255,255,255,0.98),rgba(255,255,255,0.95))", border: "1px solid rgba(20,15,10,0.12)", borderRadius: 24, padding: "40px 36px", backdropFilter: "blur(20px)", boxShadow: "0 28px 70px rgba(0,0,0,0.1)" }}>
-                    {[
-                      { label: "Ваше имя *", type: "text", key: "name", ph: "Имя Фамилия" },
-                      { label: "Телефон *", type: "tel", key: "phone", ph: "+992 00 000 00 00" },
-                    ].map(f => (
-                      <div key={f.key} style={{ marginBottom: 20 }}>
-                        <label style={{ display: "block", color: "rgba(20,15,10,0.45)", fontSize: 12, marginBottom: 8, fontWeight: 600, letterSpacing: .5, textTransform: "uppercase" }}>{f.label}</label>
-                        <input className="input-f" type={f.type} placeholder={f.ph} value={form[f.key]} onChange={e => setForm({ ...form, [f.key]: e.target.value })} required={f.key !== "email"} />
-                      </div>
-                    ))}
-                    <div style={{ marginBottom: 32 }}>
-                      <label style={{ display: "block", color: "rgba(20,15,10,0.45)", fontSize: 12, marginBottom: 8, fontWeight: 600, letterSpacing: .5, textTransform: "uppercase" }}>Описание проблемы</label>
-                      <textarea className="input-f" placeholder="Кратко опишите вашу ситуацию..." rows={4} value={form.desc} onChange={e => setForm({ ...form, desc: e.target.value })} style={{ resize: "vertical", minHeight: 110 }} />
-                    </div>
-                    <button type="submit" className="btn-gold" style={{ width: "100%", padding: "17px", fontSize: 16 }}>Отправить заявку →</button>
-                    <p style={{ color: "rgba(20,15,10,0.22)", fontSize: 12, textAlign: "center", marginTop: 14 }}>Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности</p>
-                  </form>
-                )}
+                <div style={{ textAlign: "center", padding: "80px 40px" }}>
+                  <div style={{ fontSize: 72, marginBottom: 20 }}>📱</div>
+                  <h3 style={{ fontFamily: "'Cormorant Garamond',serif", color: "#1a1510", fontSize: 32, marginBottom: 12 }}>Свяжитесь с нами</h3>
+                  <p style={{ color: "rgba(20,15,10,0.45)", fontSize: 16, lineHeight: 1.7, marginBottom: 32 }}>Для записи на консультацию нажмите кнопку ниже</p>
+                  <button className="btn-gold" style={{ fontSize: 16, padding: "17px 40px" }} onClick={openModal}>Открыть форму записи →</button>
+                </div>
               </Reveal>
             </div>
           </div>
@@ -668,17 +664,17 @@ export default function App() {
       </section>
 
       {/* ══ FOOTER ══ */}
-      <footer style={{ background: "#ece8e0", borderTop: "1px solid rgba(20,15,10,0.05)", padding: "48px 32px 28px" }}>
+      <footer style={{ background: "#ece8e0", borderTop: "1px solid rgba(20,15,10,0.05)", padding: "48px 15px 28px" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <div className="footer" style={{ display: "flex", justifyContent: "space-around", alignItems: "center", flexWrap: "wrap", gap: 24, marginBottom: 36 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
               <img src={PHOTO} alt="" style={{ width: 48, height: 48, borderRadius: "50%", objectFit: "cover", objectPosition: "center top", border: "2px solid rgba(200,169,110,0.25)" }} />
               <div>
                 <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 18, fontWeight: 700, color: "#1a1510" }}>Хамзабек Хакимзода</div>
-                <div style={{ color: "rgba(200,169,110,0.6)", fontSize: 11, letterSpacing: 1.5, textTransform: "uppercase" }}>Адвокат · Таджикистан</div>
+                <div style={{ color: "rgba(255, 166, 0, 0.9)", fontSize: 11, letterSpacing: 1.5, textTransform: "uppercase" }}>Адвокат · Таджикистан</div>
               </div>
             </div>
-            <div className="textsFooter" style={{ display: "flex", gap: 28 }}>
+            <div className="textsFooter">
               {NAV.map(n => <span key={n.id} className="nav-link" style={{ fontSize: 13 }} onClick={() => scrollTo(n.id)}>{n.label}</span>)}
             </div>
           </div>
@@ -688,6 +684,40 @@ export default function App() {
           </div>
         </div>
       </footer>
+
+      {/* ══ MODAL ══ */}
+      <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
+        <div style={{ padding: "40px 36px" }}>
+          {submitted ? (
+            <div style={{ textAlign: "center", padding: "24px 0" }}>
+              <div style={{ fontSize: 72, marginBottom: 20 }}>✅</div>
+              <h3 style={{ fontFamily: "'Cormorant Garamond',serif", color: "#7ec8a0", fontSize: 32, marginBottom: 12 }}>Заявка принята!</h3>
+              <p style={{ color: "rgba(20,15,10,0.45)", fontSize: 16, lineHeight: 1.7 }}>Хамзабек Хакимзода свяжется с вами в ближайшее время. Спасибо!</p>
+            </div>
+          ) : (
+            <form onSubmit={async e => { e.preventDefault(); if (form.name && form.phone) { await sendTelegramMessage(form.name, form.phone, form.desc); setSubmitted(true); } }}>
+              <h3 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 28, fontWeight: 700, color: "#1a1510", marginBottom: 8, textAlign: "center" }}>Записаться на консультацию</h3>
+              <p style={{ color: "rgba(20,15,10,0.35)", fontSize: 14, textAlign: "center", marginBottom: 32 }}>Заполните форму и мы свяжемся с вами</p>
+
+              {[
+                { label: "Ваше имя *", type: "text", key: "name", ph: "Имя Фамилия" },
+                { label: "Телефон *", type: "number", key: "phone", ph: "+992 00 000 00 00" },
+              ].map(f => (
+                <div key={f.key} style={{ marginBottom: 20 }}>
+                  <label style={{ display: "block", color: "rgba(20,15,10,0.45)", fontSize: 12, marginBottom: 8, fontWeight: 600, letterSpacing: .5, textTransform: "uppercase" }}>{f.label}</label>
+                  <input className="input-f" type={f.type} placeholder={f.ph} value={form[f.key]} onChange={e => setForm({ ...form, [f.key]: e.target.value })} required />
+                </div>
+              ))}
+              <div style={{ marginBottom: 32 }}>
+                <label style={{ display: "block", color: "rgba(20,15,10,0.45)", fontSize: 12, marginBottom: 8, fontWeight: 600, letterSpacing: .5, textTransform: "uppercase" }}>Описание проблемы</label>
+                <textarea className="input-f" placeholder="Кратко опишите вашу ситуацию..." rows={4} value={form.desc} onChange={e => setForm({ ...form, desc: e.target.value })} style={{ resize: "vertical", minHeight: 110 }} required />
+              </div>
+              <button type="submit" className="btn-gold" style={{ width: "100%", padding: "17px", fontSize: 16 }}>Отправить заявку →</button>
+              <p style={{ color: "rgba(20,15,10,0.22)", fontSize: 12, textAlign: "center", marginTop: 14 }}>Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности</p>
+            </form>
+          )}
+        </div>
+      </Modal>
     </div>
   );
 }
