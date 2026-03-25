@@ -269,6 +269,17 @@ export default function App() {
 
         .textsFooter { display: flex; gap: 28px; flex-wrap: wrap; }
         
+
+       .divAbout {
+              max-width: 1200px;
+              margin: 0 auto;
+              box-sizing: border-box;
+              }
+
+       .divAbout-content {
+          flex: 1;
+          min-width: 280px;
+          }
         @media(max-width:1200px) {
           .container { padding: 0 20px; }
         }
@@ -321,6 +332,8 @@ export default function App() {
           .footer { display: block !important; gap: 1px !important; }
           .textsFooter { display: flex; gap: 1px; flex-wrap: wrap; margin-top: 10px; }
           .glass { width: 100%; max-width: 100%; margin: 0 auto; }
+          .divAbout-content {flex: 1;min-width: 200px;padding-left:19px}
+          .divSudeb{max-width:400px;margin: 0 auto;box-sizing: border-box;}
         }
         @media(max-width:320px) {
           .container { padding: 0 12px; }
@@ -332,6 +345,8 @@ export default function App() {
           .btn-gold { padding: 10px 16px !important; font-size: 12px !important; }
           .btn-outline { padding: 10px 16px !important; font-size: 12px !important; }
           .glass { width: 100%; max-width: 100%; margin: 0 auto; }
+          .divAbout{max-width:1210px;margin: 0 auto;box-sizing: border-box;}
+          .divAbout-content {flex: 1;min-width: 280px;padding-left:10px}
         }
       `}</style>
 
@@ -391,7 +406,7 @@ export default function App() {
               </Reveal>
               <Reveal delay={0.2}>
                 <p style={{ color: "#868686", fontSize: 17, lineHeight: 1.3, marginBottom: 36, maxWidth: 520 }}>
-                  Профессиона��ьная правовая защита по всему Таджикистану. Опыт в гражданском, уголовном, семейном и коммерческом праве. Представление интересов клиентов в судах.
+                  Профессиональная правовая защита по всему Таджикистану. Опыт в гражданском, уголовном, семейном и коммерческом праве. Представление интересов клиентов в судах.
                 </p>
               </Reveal>
               <Reveal delay={0.25}>
@@ -432,9 +447,9 @@ export default function App() {
       {/* ══ ABOUT ══ */}
       <section id="about" style={{ background: "rgba(223,223,223,1)", padding: "100px 20px", position: "relative" }}>
         <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: 700, height: 400, background: "radial-gradient(ellipse,rgba(120,120,120,0.08),transparent 70%)", pointerEvents: "none" }} />
-        <div style={{ maxWidth: 1200, margin: "0 auto", boxSizing: "border-box" }}>
+        <div className="divAbout">
           <div style={{ display: "flex", gap: 72, alignItems: "center", flexWrap: "wrap" }}>
-            <div style={{ flex: 1, minWidth: 280 }}>
+            <div className="divAbout-content">
               <Reveal>
                 <span className="badge">👤 Обо мне</span>
                 <h2 className="sec-title" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 44, fontWeight: 700, color: "#171717", marginBottom: 24, lineHeight: 0.9 }}>
@@ -605,7 +620,7 @@ export default function App() {
         <div style={{ position: "absolute", top: "20%", right: "-5%", width: 320, height: 320, borderRadius: "50%", background: "rgba(120,120,120,0.08)", filter: "blur(60px)", pointerEvents: "none" }} />
         <div style={{ maxWidth: 1200, margin: "0 auto", position: "relative", boxSizing: "border-box" }}>
           <Reveal style={{ textAlign: "center", marginBottom: 64 }}>
-            <span className="badge">📨 Запись</span>
+            <span className="badge">Запись</span>
             <h2 className="sec-title" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 44, fontWeight: 700, color: "#171717", lineHeight: 1.2 }}>
               Записаться на <span style={{ color: "#171717" }}>консультацию</span>
             </h2>
@@ -701,7 +716,7 @@ export default function App() {
       <footer style={{ background: "rgba(223,223,223,1)", borderTop: "1px solid rgba(23,23,23,0.05)", padding: "48px 20px 28px" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto", boxSizing: "border-box" }}>
           <div className="footer" style={{ display: "flex", justifyContent: "space-around", alignItems: "center", flexWrap: "wrap", gap: 24, marginBottom: 36 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 14 ,paddingRight: "300px"}}>
+            <div style={{ display: "flex", alignItems: "center", gap: 14, paddingRight: "300px" }}>
               <img src={PHOTO} alt="Хамзабек Хакимзода" style={{ width: 48, height: 48, borderRadius: "50%", objectFit: "cover", objectPosition: "center top", border: "2px solid rgba(120,120,120,0.25)" }} />
               <div>
                 <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 18, fontWeight: 700, color: "#171717" }}>Хамзабек Хакимзода</div>
@@ -713,7 +728,7 @@ export default function App() {
             </div>
           </div>
           <div style={{ borderTop: "1px solid rgba(23,23,23,0.05)", paddingTop: 24, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
-            <div style={{ color: "rgba(23,23,23,0.18)", fontSize: 13,paddingLeft:"50px" }}>© 2026 Мирзовалиен Хамзабек Хакимзода. Все права защищены.</div>
+            <div style={{ color: "rgba(23,23,23,0.18)", fontSize: 13, paddingLeft: "50px" }}>© 2026 Мирзовалиен Хамзабек Хакимзода. Все права защищены.</div>
             <div style={{ color: "rgba(23,23,23,0.18)", fontSize: 12 }}>г. Душанбе, ул. Валаматзода, д. 10</div>
           </div>
         </div>
@@ -734,7 +749,7 @@ export default function App() {
               <p style={{ color: "#868686", fontSize: 14, textAlign: "center", marginBottom: 32 }}>Заполните форму и мы свяжемся с вами</p>
 
               {[
-                { label: "Ваше имя *", type: "text", key: "name", ph: "И��я Фамилия" },
+                { label: "Ваше имя *", type: "text", key: "name", ph: "Имя Фамилия" },
                 { label: "Телефон *", type: "number", key: "phone", ph: "+992 00 000 00 00" },
               ].map(f => (
                 <div key={f.key} style={{ marginBottom: 20 }}>
