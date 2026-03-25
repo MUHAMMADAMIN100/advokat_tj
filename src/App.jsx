@@ -628,7 +628,7 @@ export default function App() {
           </Reveal>
 
           <div className="contact-flex" style={{ display: "flex", gap: 48, flexWrap: "wrap", justifyContent: "center", alignItems: "flex-start" }}>
-            <div style={{ flex: "0 0 100%", maxWidth: 350, margin: "0 auto" }}>
+            <div style={{ flex: "0 0 100%", maxWidth: 350, margin: "0 -3px" }}>
               <Reveal direction="left" delay={0.1}>
                 <div className="glass" style={{ padding: "36px 30px", boxSizing: "border-box" }}>
                   <div style={{ display: "flex", gap: 14, alignItems: "center", marginBottom: 28, paddingBottom: 24, borderBottom: "1px solid rgba(23,23,23,0.07)" }}>
@@ -694,7 +694,7 @@ export default function App() {
               </Reveal>
             </div>
 
-            <div style={{ flex: "0 0 100%", maxWidth: 600, margin: "0 auto" }}>
+            <div style={{ flex: "0 0 100%", maxWidth: 800, margin: "0 auto" }}>
               <Reveal delay={0.15}>
                 <div className="glass" style={{ padding: 0, overflow: "hidden", height: 500, boxSizing: "border-box" }}>
                   <iframe
@@ -713,9 +713,9 @@ export default function App() {
       </section>
 
       {/* ══ FOOTER ══ */}
-      <footer style={{ background: "rgba(223,223,223,1)", borderTop: "1px solid rgba(23,23,23,0.05)", padding: "48px 20px 28px" }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto", boxSizing: "border-box" }}>
-          <div className="footer" style={{ display: "flex", justifyContent: "space-around", alignItems: "center", flexWrap: "wrap", gap: 24, marginBottom: 36 }}>
+      <footer style={{ background: "rgba(223,223,223,1)", borderTop: "1px solid rgba(23,23,23,0.05)", padding: "48px 20px 28px 40px" }}>
+        <div style={{ maxWidth: 1200, margin: "0", boxSizing: "border-box",marginLeft: "310px" }}>
+          <div className="footer" style={{ display: "flex", justifyContent: "space-around", alignItems: "center", flexWrap: "wrap", gap: 200, marginBottom: 36 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 14, paddingRight: "300px" }}>
               <img src={PHOTO} alt="Хамзабек Хакимзода" style={{ width: 48, height: 48, borderRadius: "50%", objectFit: "cover", objectPosition: "center top", border: "2px solid rgba(120,120,120,0.25)" }} />
               <div>
