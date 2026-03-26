@@ -280,6 +280,25 @@ export default function App() {
           flex: 1;
           min-width: 280px;
           }
+        .footer {
+          background: rgba(223, 223, 223, 1);
+          border-top: 1px solid rgba(23, 23, 23, 0.05);
+          padding: 48px 20px 28px 40px;
+        }
+        .footerDiv {
+          max-width: 1200px;
+          margin: 0;
+          box-sizing: border-box;
+          margin-left: 310px;
+        }
+
+        .footImgtDiv {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding-right: 300px;
+        }
+
         @media(max-width:1200px) {
           .container { padding: 0 20px; }
         }
@@ -347,6 +366,8 @@ export default function App() {
           .glass { width: 100%; max-width: 100%; margin: 0 auto; }
           .divAbout{max-width:1210px;margin: 0 auto;box-sizing: border-box;}
           .divAbout-content {flex: 1;min-width: 280px;padding-left:10px}
+          .footerDiv{max-width:1200px;margin: 0;box-sizing: border-box;margin-left: -50px;}
+          .footImgtDiv {display: flex;align-items: center;gap:10px;padding-right: 300px;}
         }
       `}</style>
 
@@ -713,11 +734,11 @@ export default function App() {
       </section>
 
       {/* ══ FOOTER ══ */}
-      <footer style={{ background: "rgba(223,223,223,1)", borderTop: "1px solid rgba(23,23,23,0.05)", padding: "48px 20px 28px 40px" }}>
-        <div style={{ maxWidth: 1200, margin: "0", boxSizing: "border-box",marginLeft: "310px" }}>
+      <footer className="footer" >
+        <div className="footerDiv">
           <div className="footer" style={{ display: "flex", justifyContent: "space-around", alignItems: "center", flexWrap: "wrap", gap: 200, marginBottom: 36 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 14, paddingRight: "300px" }}>
-              <img src={PHOTO} alt="Хамзабек Хакимзода" style={{ width: 48, height: 48, borderRadius: "50%", objectFit: "cover", objectPosition: "center top", border: "2px solid rgba(120,120,120,0.25)" }} />
+            <div className="footImgtDiv">
+              <div style={{ width: 38, height: 38, borderRadius: 10, background: "linear-gradient(135deg,#2c3e50,#34495e)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 19, boxShadow: "0 4px 18px rgba(44,62,80,0.3)" }}>⚖️</div>
               <div>
                 <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 18, fontWeight: 700, color: "#171717" }}>Хамзабек Хакимзода</div>
                 <div style={{ color: "#868686", fontSize: 11, letterSpacing: 1.5, textTransform: "uppercase" }}>Адвокат · Таджикистан</div>
