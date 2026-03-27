@@ -184,12 +184,12 @@ export default function App() {
   };
 
   return (
-    <div style={{ fontFamily: "'Roboto', sans-serif", background: "rgba(245,245,245,1)", color: "#171717", overflowX: "hidden" }}>
+    <div style={{ fontFamily: "'Roboto', sans-serif", background: "rgba(245,245,245,1)", color: "#171717" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Roboto:wght@300;400;500;600;700&display=swap');
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-        body { margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body { margin: 0; padding: 0; overflow-x: hidden; }
         ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-track { background: rgba(223,223,223,1); }
         ::-webkit-scrollbar-thumb { background: rgba(120,120,120,0.35); border-radius: 3px; }
@@ -265,109 +265,159 @@ export default function App() {
         .gold-bar { width: 48px; height: 2px; background: linear-gradient(90deg,#171717,transparent); border-radius:1px; margin-bottom:18px; }
         .verified { display:inline-flex; align-items:center; gap:5px; background:rgba(126,200,160,0.1); border:1px solid rgba(126,200,160,0.2); border-radius:8px; padding:3px 10px; font-size:11px; color:#7ec8a0; font-weight:600; }
 
+        /* ── LAYOUT ── */
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; width: 100%; box-sizing: border-box; }
 
-        .textsFooter { display: flex; gap: 28px; flex-wrap: wrap; }
-        
-
-       .divAbout {
-              max-width: 1200px;
-              margin: 0 auto;
-              box-sizing: border-box;
-              }
-
-       .divAbout-content {
-          flex: 1;
-          min-width: 280px;
-          }
-        .footer {
-          background: rgba(223, 223, 223, 1);
-          border-top: 1px solid rgba(23, 23, 23, 0.05);
-          padding: 48px 20px 28px 40px;
-        }
-        .footerDiv {
-          max-width: 1200px;
-          margin: 0;
+        /* ── FOOTER ── */
+        .site-footer {
+          background: rgba(223,223,223,1);
+          border-top: 1px solid rgba(23,23,23,0.07);
+          padding: 48px 20px 28px;
+          width: 100%;
           box-sizing: border-box;
-          margin-left: 310px;
+        }
+        .footer-inner {
+          max-width: 1200px;
+          margin: 0 auto;
+          box-sizing: border-box;
+          width: 100%;
+        }
+        .footer-top {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 24px;
+          margin-bottom: 36px;
+        }
+        .footer-brand {
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          flex-shrink: 0;
+        }
+        .footer-nav {
+          display: flex;
+          gap: 28px;
+          flex-wrap: wrap;
+        }
+        .footer-bottom {
+          border-top: 1px solid rgba(23,23,23,0.05);
+          padding-top: 24px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 8px;
         }
 
-        .footImgtDiv {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        padding-right: 300px;
-        }
+        /* ── ABOUT ── */
+        .about-wrap { display: flex; gap: 72px; align-items: center; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; box-sizing: border-box; }
+        .about-content { flex: 1; min-width: 0; }
+        .about-cards { flex: 0 0 auto; display: flex; flex-direction: column; gap: 16px; width: 100%; max-width: 320px; }
 
-        @media(max-width:1200px) {
-          .container { padding: 0 20px; }
-        }
+        /* ── CONTACT ── */
+        .contact-card { flex: 0 0 350px; max-width: 350px; }
+        .contact-map  { flex: 1 1 0; min-width: 0; }
+
+        /* ── MISC ── */
+        .d-none-mob { display: flex !important; }
+
+        /* ════════════════════
+           RESPONSIVE
+        ════════════════════ */
+
+        /* ≤ 1024px */
         @media(max-width:1024px) {
-          .container { padding: 0 20px; }
           .hero-photo { width: 280px !important; height: 360px !important; }
           .spec-grid { grid-template-columns: repeat(3,1fr) !important; }
           .hero-wrap { gap: 40px !important; }
         }
+
+        /* ≤ 900px */
         @media(max-width:900px) {
           .hero-wrap { flex-direction: column-reverse !important; }
           .hero-photo { width: 260px !important; height: 340px !important; }
           .spec-grid { grid-template-columns: 1fr 1fr !important; }
           .stats-row { grid-template-columns: 1fr 1fr !important; }
-          .footer-cols { grid-template-columns: 1fr 1fr !important; }
           .d-none-mob { display: none !important; }
-          .contact-flex { flex-direction: column !important; }
+          .contact-flex { flex-direction: column !important; flex-wrap: wrap !important; }
+          .contact-card { flex: 0 0 auto !important; max-width: 100% !important; width: 100% !important; }
+          .contact-map  { flex: 0 0 auto !important; max-width: 100% !important; width: 100% !important; }
+          .footer-top { gap: 20px; }
+          .about-wrap { gap: 40px; }
         }
+
+        /* ≤ 768px */
         @media(max-width:768px) {
-          .container { padding: 0 20px; }
           .hero-title { font-size: 48px !important; }
           .sec-title { font-size: 38px !important; }
           .reviews-grid { grid-template-columns: 1fr 1fr !important; }
-          header { padding: 0 20px !important; }
-          section { padding: 80px 20px !important; }
+          header { padding: 0 15px !important; }
+          section { padding: 80px 15px !important; }
+          .site-footer { padding: 40px 15px 24px; }
+          .about-wrap { gap: 32px; }
         }
+
+        /* ≤ 580px */
         @media(max-width:580px) {
-          .container { padding: 0 15px; }
           .spec-grid { grid-template-columns: 1fr !important; }
           .hero-title { font-size: 38px !important; }
           .sec-title { font-size: 32px !important; }
           .stats-row { grid-template-columns: 1fr 1fr !important; }
-          .footer-cols { grid-template-columns: 1fr !important; }
           .reviews-grid { grid-template-columns: 1fr !important; }
-          .footer { display: block !important; gap: 1px !important; }
-          .textsFooter { display: flex; flex-direction: column; gap: 1px; margin-top: 10px; }
-          .glass { width: 100%; max-width: 100%; margin: 0 auto; }
+          .glass { width: 100%; max-width: 100%; }
           .contact-flex { gap: 20px !important; }
+          .contact-card { max-width: 100% !important; width: 100% !important; }
+          .contact-map  { max-width: 100% !important; width: 100% !important; }
+          .footer-top { flex-direction: column; align-items: flex-start; gap: 20px; }
+          .footer-nav { gap: 16px 20px; }
+          .footer-bottom { flex-direction: column; align-items: flex-start; gap: 6px; }
+          .about-cards { max-width: 100%; }
+          .about-wrap { gap: 28px; }
         }
+
+        /* ≤ 425px */
         @media(max-width:425px) {
-          .container { padding: 0 15px; }
           .hero-title { font-size: 32px !important; }
           .sec-title { font-size: 26px !important; }
           .hero-photo { width: 200px !important; height: 280px !important; }
           header { padding: 0 15px !important; }
           section { padding: 60px 15px !important; }
-          .stats-row { grid-template-columns: 1fr !important; }
+          .stats-row { grid-template-columns: 1fr 1fr !important; }
           .btn-gold { padding: 12px 20px !important; font-size: 13px !important; }
           .btn-outline { padding: 12px 20px !important; font-size: 13px !important; }
-          .footer { display: block !important; gap: 1px !important; }
-          .textsFooter { display: flex; gap: 1px; flex-wrap: wrap; margin-top: 10px; }
-          .glass { width: 100%; max-width: 100%; margin: 0 auto; }
-          .divAbout-content {flex: 1;min-width: 200px;padding-left:19px}
-          .divSudeb{max-width:400px;margin: 0 auto;box-sizing: border-box;}
+          .glass { width: 100%; max-width: 100%; }
+          .site-footer { padding: 36px 15px 20px; }
+          .footer-brand { gap: 10px; }
+          .about-wrap { gap: 24px; }
+          .about-cards { max-width: 100%; }
+          .contact-card { max-width: 100% !important; width: 100% !important; }
+          .contact-map  { max-width: 100% !important; width: 100% !important; }
         }
+
+        /* ≤ 375px */
+        @media(max-width:375px) {
+          .hero-title { font-size: 28px !important; }
+          .sec-title { font-size: 22px !important; }
+          .about-wrap { gap: 20px; }
+        }
+
+        /* ≤ 320px */
         @media(max-width:320px) {
-          .container { padding: 0 12px; }
           .hero-title { font-size: 24px !important; }
           .sec-title { font-size: 20px !important; }
           .hero-photo { width: 160px !important; height: 240px !important; }
-          header { padding: 0 12px !important; }
-          section { padding: 40px 12px !important; }
+          header { padding: 0 15px !important; }
+          section { padding: 40px 15px !important; }
           .btn-gold { padding: 10px 16px !important; font-size: 12px !important; }
           .btn-outline { padding: 10px 16px !important; font-size: 12px !important; }
-          .glass { width: 100%; max-width: 100%; margin: 0 auto; }
-          .divAbout{max-width:1210px;margin: 0 auto;box-sizing: border-box;}
-          .divAbout-content {flex: 1;min-width: 280px;padding-left:10px}
-          .footerDiv{max-width:1200px;margin: 0;box-sizing: border-box;margin-left: -50px;}
-          .footImgtDiv {display: flex;align-items: center;gap:10px;padding-right: 300px;}
+          .glass { width: 100%; max-width: 100%; }
+          .site-footer { padding: 30px 15px 16px; }
+          .stats-row { grid-template-columns: 1fr !important; }
+          .about-wrap { gap: 16px; }
+          .contact-card { max-width: 100% !important; width: 100% !important; }
+          .contact-map  { max-width: 100% !important; width: 100% !important; }
         }
       `}</style>
 
@@ -384,7 +434,7 @@ export default function App() {
               <div style={{ fontSize: 9, color: "#868686", letterSpacing: 2, textTransform: "uppercase", fontWeight: 600 }}>Адвокат · Таджикистан</div>
             </div>
           </div>
-          <nav className="d-none-mob" style={{ display: "flex", gap: 34 }}>
+          <nav className="d-none-mob" style={{ gap: 34 }}>
             {NAV.map(n => <span key={n.id} className="nav-link" onClick={() => scrollTo(n.id)}>{n.label}</span>)}
           </nav>
           <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
@@ -405,7 +455,7 @@ export default function App() {
           <div style={{ position: "absolute", inset: 40, borderRadius: "50%", border: "1px solid rgba(120,120,120,0.12)" }} />
         </div>
 
-        <div style={{ maxWidth: 1200, margin: "0 auto", padding: "80px 20px", width: "100%", position: "relative", zIndex: 1, boxSizing: "border-box" }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto", padding: "80px 15px", width: "100%", position: "relative", zIndex: 1, boxSizing: "border-box" }}>
           <div className="hero-wrap" style={{ display: "flex", alignItems: "center", gap: 72, justifyContent: "center" }}>
             <div style={{ flex: 1, minWidth: 0 }}>
               <Reveal>
@@ -466,77 +516,58 @@ export default function App() {
       </section>
 
       {/* ══ ABOUT ══ */}
-      <section id="about" style={{ background: "rgba(223,223,223,1)", padding: "100px 20px", position: "relative" }}>
+      <section id="about" style={{ background: "rgba(223,223,223,1)", padding: "100px 15px", position: "relative" }}>
         <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: 700, height: 400, background: "radial-gradient(ellipse,rgba(120,120,120,0.08),transparent 70%)", pointerEvents: "none" }} />
-        <div className="divAbout">
-          <div style={{ display: "flex", gap: 72, alignItems: "center", flexWrap: "wrap" }}>
-            <div className="divAbout-content">
-              <Reveal>
-                <span className="badge">👤 Обо мне</span>
-                <h2 className="sec-title" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 44, fontWeight: 700, color: "#171717", marginBottom: 24, lineHeight: 0.9 }}>
-                  О <span style={{ color: "#171717" }}>специалисте</span>
-                </h2>
-                <div className="gold-bar" />
-                <p style={{ color: "#868686", fontSize: 16, lineHeight: 1.3, marginBottom: 20 }}>
-                  Хамзабек Хакимзода — опытный адвокат и юрист с 26-летней практикой. Ведёт дела в области гражданского, уголовного, семейного и коммерческого права по всей территории Таджикистана.
-                </p>
-                <p style={{ color: "#868686", fontSize: 16, lineHeight: 1.3, marginBottom: 32 }}>
-                  Осуществляет представление клиентов во всех судебных инстанциях. Предоставляет правовую помощь в рамках государственной программы legal aid и услуги pro-bono для лиц, нуждающихся в поддержке.
-                </p>
-                <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-                  {[
-                    <>
-                      <FaPhoneAlt style={{ marginRight: 6 }} />
-                      г. Душанбе, ул. Валаматзода, д. 10
-                    </>,
-                    <>
-                      <TiWorld style={{ marginRight: 6 }} />
-                      По всему Таджикистану
-                    </>
-                  ].map((t, i) => (
-                    <div
-                      key={i}
-                      style={{
-                        background: "rgba(23,23,23,0.05)",
-                        border: "1px solid rgba(23,23,23,0.08)",
-                        borderRadius: 10,
-                        padding: "10px 16px",
-                        fontSize: 13,
-                        color: "#868686",
-                        display: "flex",
-                        alignItems: "center",
-                      }}
-                    >
-                      {t}
-                    </div>
-                  ))}
+        <div className="about-wrap">
+          <div className="about-content">
+            <Reveal>
+              <span className="badge">👤 Обо мне</span>
+              <h2 className="sec-title" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 44, fontWeight: 700, color: "#171717", marginBottom: 24, lineHeight: 0.9 }}>
+                О <span style={{ color: "#171717" }}>специалисте</span>
+              </h2>
+              <div className="gold-bar" />
+              <p style={{ color: "#868686", fontSize: 16, lineHeight: 1.3, marginBottom: 20 }}>
+                Хамзабек Хакимзода — опытный адвокат и юрист с 26-летней практикой. Ведёт дела в области гражданского, уголовного, семейного и коммерческого права по всей территории Таджикистана.
+              </p>
+              <p style={{ color: "#868686", fontSize: 16, lineHeight: 1.3, marginBottom: 32 }}>
+                Осуществляет представление клиентов во всех судебных инстанциях. Предоставляет правовую помощь в рамках государственной программы legal aid и услуги pro-bono для лиц, нуждающихся в поддержке.
+              </p>
+              <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+                {[
+                  <><FaPhoneAlt style={{ marginRight: 6 }} />г. Душанбе, ул. Валаматзода, д. 10</>,
+                  <><TiWorld style={{ marginRight: 6 }} />По всему Таджикистану</>
+                ].map((t, i) => (
+                  <div key={i} style={{ background: "rgba(23,23,23,0.05)", border: "1px solid rgba(23,23,23,0.08)", borderRadius: 10, padding: "10px 16px", fontSize: 13, color: "#868686", display: "flex", alignItems: "center" }}>
+                    {t}
+                  </div>
+                ))}
+              </div>
+            </Reveal>
+          </div>
+
+          <div className="about-cards">
+            {[
+              { icon: <GoLaw />, title: "Судебное представительство", desc: "Представление интересов во всех инстанциях" },
+              { icon: <FaHandsHelping />, title: "Legal Aid & Pro-bono", desc: "Помощь лицам без возможности оплаты услуг" },
+              { icon: <TiWorld />, title: "Работа по всей стране", desc: "Дела на территории всего Таджикистана" },
+              { icon: <LuLanguages />, title: "3 языка", desc: "Русский, таджикский, английский" },
+            ].map((item, i) => (
+              <Reveal key={i} delay={i * 0.07} direction="right">
+                <div className="glass" style={{ padding: "18px 22px", display: "flex", gap: 16, alignItems: "center" }}>
+                  <div style={{ width: 44, height: 44, borderRadius: 12, background: "linear-gradient(135deg,rgba(120,120,120,0.15),rgba(120,120,120,0.05))", border: "1px solid rgba(120,120,120,0.18)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, flexShrink: 0, color: "#171717" }}>{item.icon}</div>
+                  <div>
+                    <div style={{ color: "#171717", fontWeight: 600, fontSize: 14, marginBottom: 3 }}>{item.title}</div>
+                    <div style={{ color: "#868686", fontSize: 12 }}>{item.desc}</div>
+                  </div>
                 </div>
               </Reveal>
-            </div>
-            <div className="divSudeb" style={{ flex: "0 0 auto", display: "flex", flexDirection: "column", gap: 16, width: "100%", maxWidth: 320 }}>
-              {[
-                { icon: <GoLaw />, title: "Судебное представительство", desc: "Представление интересов во всех инстанциях" },
-                { icon: <FaHandsHelping />, title: "Legal Aid & Pro-bono", desc: "Помощь лицам без возможности оплаты услуг" },
-                { icon: <TiWorld />, title: "Работа по всей стране", desc: "Дела на территории всего Таджикистана" },
-                { icon: <LuLanguages />, title: "3 языка", desc: "Русский, таджикский, английский" },
-              ].map((item, i) => (
-                <Reveal key={i} delay={i * 0.07} direction="right">
-                  <div className="glass" style={{ padding: "18px 22px", display: "flex", gap: 16, alignItems: "center" }}>
-                    <div style={{ width: 44, height: 44, borderRadius: 12, background: "linear-gradient(135deg,rgba(120,120,120,0.15),rgba(120,120,120,0.05))", border: "1px solid rgba(120,120,120,0.18)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, flexShrink: 0, color: "#171717" }}>{item.icon}</div>
-                    <div>
-                      <div style={{ color: "#171717", fontWeight: 600, fontSize: 14, marginBottom: 3 }}>{item.title}</div>
-                      <div style={{ color: "#868686", fontSize: 12 }}>{item.desc}</div>
-                    </div>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* ══ STATS ══ */}
-      <section id="stats" style={{ background: "linear-gradient(135deg,#efefef,#e0e0e0)", padding: "80px 20px", position: "relative", overflow: "hidden" }}>
+      <section id="stats" style={{ background: "linear-gradient(135deg,#efefef,#e0e0e0)", padding: "80px 15px", position: "relative", overflow: "hidden" }}>
         <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 60% 80% at 50% 50%,rgba(120,120,120,0.12),transparent)", pointerEvents: "none" }} />
         <div style={{ maxWidth: 1200, margin: "0 auto", boxSizing: "border-box" }}>
           <div className="stats-row" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 32, position: "relative", zIndex: 1 }}>
@@ -550,7 +581,7 @@ export default function App() {
       </section>
 
       {/* ══ SPECIALIZATIONS ══ */}
-      <section id="specs" style={{ background: "rgba(223,223,223,1)", padding: "100px 20px" }}>
+      <section id="specs" style={{ background: "rgba(223,223,223,1)", padding: "100px 15px" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto", boxSizing: "border-box" }}>
           <Reveal style={{ textAlign: "center", marginBottom: 64 }}>
             <span className="badge">Практика</span>
@@ -577,7 +608,7 @@ export default function App() {
       </section>
 
       {/* ══ REVIEWS ══ */}
-      <section id="reviews" style={{ background: "rgba(223,223,223,1)", padding: "100px 20px", position: "relative" }}>
+      <section id="reviews" style={{ background: "rgba(223,223,223,1)", padding: "100px 15px", position: "relative" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto", boxSizing: "border-box" }}>
           <Reveal style={{ textAlign: "center", marginBottom: 60 }}>
             <span className="badge">Отзывы</span>
@@ -610,7 +641,7 @@ export default function App() {
       </section>
 
       {/* ══ FAQ ══ */}
-      <section style={{ background: "rgba(223,223,223,1)", padding: "100px 20px" }}>
+      <section style={{ background: "rgba(223,223,223,1)", padding: "100px 15px" }}>
         <div style={{ maxWidth: 760, margin: "0 auto", boxSizing: "border-box" }}>
           <Reveal style={{ textAlign: "center", marginBottom: 60 }}>
             <h2 className="sec-title" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 44, fontWeight: 700, color: "#171717", lineHeight: 1.2 }}>
@@ -636,7 +667,7 @@ export default function App() {
       </section>
 
       {/* ══ CONTACT ══ */}
-      <section id="contact" style={{ background: "rgba(223,223,223,1)", padding: "100px 20px", position: "relative", overflow: "hidden" }}>
+      <section id="contact" style={{ background: "rgba(223,223,223,1)", padding: "100px 15px", position: "relative", overflow: "hidden" }}>
         <div style={{ position: "absolute", top: "40%", left: "50%", transform: "translate(-50%,-50%)", width: 800, height: 800, borderRadius: "50%", background: "radial-gradient(circle,rgba(120,120,120,0.06),transparent 70%)", pointerEvents: "none" }} />
         <div style={{ position: "absolute", top: "20%", right: "-5%", width: 320, height: 320, borderRadius: "50%", background: "rgba(120,120,120,0.08)", filter: "blur(60px)", pointerEvents: "none" }} />
         <div style={{ maxWidth: 1200, margin: "0 auto", position: "relative", boxSizing: "border-box" }}>
@@ -648,8 +679,8 @@ export default function App() {
             <p style={{ color: "#868686", fontSize: 16, marginTop: 12 }}>Оставьте заявку — свяжемся в течение 30 минут</p>
           </Reveal>
 
-          <div className="contact-flex" style={{ display: "flex", gap: 48, flexWrap: "wrap", justifyContent: "center", alignItems: "flex-start" }}>
-            <div style={{ flex: "0 0 100%", maxWidth: 350, margin: "0 -3px" }}>
+          <div className="contact-flex" style={{ display: "flex", gap: 48, flexWrap: "nowrap", alignItems: "flex-start" }}>
+            <div className="contact-card">
               <Reveal direction="left" delay={0.1}>
                 <div className="glass" style={{ padding: "36px 30px", boxSizing: "border-box" }}>
                   <div style={{ display: "flex", gap: 14, alignItems: "center", marginBottom: 28, paddingBottom: 24, borderBottom: "1px solid rgba(23,23,23,0.07)" }}>
@@ -677,36 +708,9 @@ export default function App() {
 
                   <div style={{ display: "flex", gap: 10, marginTop: 8 }}>
                     {[<><FaTelegramPlane /> Telegram</>, <><FaSquareInstagram /> Instagram</>].map((s, i) => (
-                      <div
-                        key={i}
-                        style={{
-                          flex: 1,
-                          background: "rgba(23,23,23,0.04)",
-                          border: "1px solid rgba(23,23,23,0.08)",
-                          borderRadius: 10,
-                          padding: "10px",
-                          textAlign: "center",
-                          fontSize: 12,
-                          color: "#868686",
-                          cursor: "pointer",
-                          transition: "all 0.2s",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          gap: 6,
-                          boxSizing: "border-box",
-                        }}
-                        onMouseEnter={e => {
-                          e.currentTarget.style.background = "rgba(120,120,120,0.08)";
-                          e.currentTarget.style.borderColor = "rgba(120,120,120,0.2)";
-                          e.currentTarget.style.color = "#171717";
-                        }}
-                        onMouseLeave={e => {
-                          e.currentTarget.style.background = "rgba(23,23,23,0.04)";
-                          e.currentTarget.style.borderColor = "rgba(23,23,23,0.08)";
-                          e.currentTarget.style.color = "#868686";
-                        }}
-                      >
+                      <div key={i} style={{ flex: 1, background: "rgba(23,23,23,0.04)", border: "1px solid rgba(23,23,23,0.08)", borderRadius: 10, padding: "10px", textAlign: "center", fontSize: 12, color: "#868686", cursor: "pointer", transition: "all 0.2s", display: "flex", alignItems: "center", justifyContent: "center", gap: 6, boxSizing: "border-box" }}
+                        onMouseEnter={e => { e.currentTarget.style.background = "rgba(120,120,120,0.08)"; e.currentTarget.style.borderColor = "rgba(120,120,120,0.2)"; e.currentTarget.style.color = "#171717"; }}
+                        onMouseLeave={e => { e.currentTarget.style.background = "rgba(23,23,23,0.04)"; e.currentTarget.style.borderColor = "rgba(23,23,23,0.08)"; e.currentTarget.style.color = "#868686"; }}>
                         {s}
                       </div>
                     ))}
@@ -715,7 +719,7 @@ export default function App() {
               </Reveal>
             </div>
 
-            <div style={{ flex: "0 0 100%", maxWidth: 800, margin: "0 auto" }}>
+            <div className="contact-map">
               <Reveal delay={0.15}>
                 <div className="glass" style={{ padding: 0, overflow: "hidden", height: 500, boxSizing: "border-box" }}>
                   <iframe
@@ -734,23 +738,29 @@ export default function App() {
       </section>
 
       {/* ══ FOOTER ══ */}
-      <footer className="footer" >
-        <div className="footerDiv">
-          <div className="footer" style={{ display: "flex", justifyContent: "space-around", alignItems: "center", flexWrap: "wrap", gap: 200, marginBottom: 36 }}>
-            <div className="footImgtDiv">
-              <div style={{ width: 38, height: 38, borderRadius: 10, background: "linear-gradient(135deg,#2c3e50,#34495e)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 19, boxShadow: "0 4px 18px rgba(44,62,80,0.3)" }}>⚖️</div>
+      <footer className="site-footer">
+        <div className="footer-inner">
+          {/* Top row: brand + nav */}
+          <div className="footer-top">
+            <div className="footer-brand">
+              <div style={{ width: 38, height: 38, borderRadius: 10, background: "linear-gradient(135deg,#2c3e50,#34495e)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 19, boxShadow: "0 4px 18px rgba(44,62,80,0.3)", flexShrink: 0 }}>⚖️</div>
               <div>
                 <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 18, fontWeight: 700, color: "#171717" }}>Хамзабек Хакимзода</div>
                 <div style={{ color: "#868686", fontSize: 11, letterSpacing: 1.5, textTransform: "uppercase" }}>Адвокат · Таджикистан</div>
               </div>
             </div>
-            <div className="textsFooter">
-              {NAV.map(n => <span key={n.id} className="nav-link" style={{ fontSize: 13 }} onClick={() => scrollTo(n.id)}>{n.label}</span>)}
-            </div>
+
+            <nav className="footer-nav">
+              {NAV.map(n => (
+                <span key={n.id} className="nav-link" style={{ fontSize: 13 }} onClick={() => scrollTo(n.id)}>{n.label}</span>
+              ))}
+            </nav>
           </div>
-          <div style={{ borderTop: "1px solid rgba(23,23,23,0.05)", paddingTop: 24, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
-            <div style={{ color: "rgba(23,23,23,0.18)", fontSize: 13, paddingLeft: "50px" }}>© 2026 Мирзовалиен Хамзабек Хакимзода. Все права защищены.</div>
-            <div style={{ color: "rgba(23,23,23,0.18)", fontSize: 12 }}>г. Душанбе, ул. Валаматзода, д. 10</div>
+
+          {/* Bottom row: copyright + address */}
+          <div className="footer-bottom">
+            <div style={{ color: "rgba(23,23,23,0.35)", fontSize: 13 }}>© 2026 Мирзовалиен Хамзабек Хакимзода. Все права защищены.</div>
+            <div style={{ color: "rgba(23,23,23,0.35)", fontSize: 12 }}>г. Душанбе, ул. Валаматзода, д. 10</div>
           </div>
         </div>
       </footer>
@@ -791,4 +801,3 @@ export default function App() {
     </div>
   );
 }
-
