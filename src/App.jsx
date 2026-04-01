@@ -530,14 +530,14 @@ export default function App() {
                 О <span style={{ color: "#171717" }}>специалисте</span>
               </h2>
               <div className="gold-bar" />
-              <p style={{ color: "#868686", fontSize: 16, lineHeight: 1.3, marginBottom: 20 }}>
+              <p style={{ color: "#868686", fontSize: 22, lineHeight: 1.3, marginBottom: 20 }}>
                 Хамзабек Хакимзода — опытный адвокат и юрист с 26-летней юридической практикой.
                 Победитель премии «Топ-50» за вклад в развитие общества.
                 Тренер по международному праву в области защиты прав человека.
                 Ведёт дела в области гражданского, уголовного, семейного и коммерческого права на всей территории Таджикистана.
 
               </p>
-              <p style={{ color: "#868686", fontSize: 16, lineHeight: 1.3, marginBottom: 32 }}>
+              <p style={{ color: "#868686", fontSize: 22, lineHeight: 1.3, marginBottom: 32 }}>
                 Осуществляет представление интересов клиентов во всех судебных инстанциях.
                 Предоставляет правовую помощь в рамках государственной программы legal aid, а также оказывает услуги pro bono для лиц, нуждающихся в поддержке.
                 Проводит платные юридические консультации с индивидуальным разбором ситуации и выработкой эффективной правовой позиции.
@@ -717,12 +717,17 @@ export default function App() {
                   ))}
 
                   <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 8 }}>
-                    {[<><FaTelegramPlane /> Telegram</>, <><FaSquareInstagram /> Instagram</>, <><FaTelegramPlane /> Facebook</>, <><FaTelegramPlane /> WhatsApp</>].map((s, i) => (
-                      <div key={i} style={{ flex: 1, background: "rgba(23,23,23,0.04)", border: "1px solid rgba(23,23,23,0.08)", borderRadius: 10, padding: "10px", textAlign: "center", fontSize: 12, color: "#868686", cursor: "pointer", transition: "all 0.2s", display: "flex", alignItems: "center", justifyContent: "center", gap: 6, boxSizing: "border-box" }}
+                    {[
+                      { label: <><FaTelegramPlane /> Telegram</>, url: "https://t.me/+992935757503" },
+                      { label: <><FaSquareInstagram /> Instagram</>, url: "https://www.instagram.com/hamzabekmirzovali?igsh=N2xhdWFvaHppZ21l" },
+                      { label: <><FaTelegramPlane /> Facebook</>, url: "https://www.facebook.com/share/1HzKX6PxMf/" },
+                      { label: <><FaTelegramPlane /> WhatsApp</>, url: "https://wa.me/992935757503" },
+                    ].map((s, i) => (
+                      <a key={i} href={s.url} target="_blank" rel="noopener noreferrer" style={{ flex: 1, background: "rgba(23,23,23,0.04)", border: "1px solid rgba(23,23,23,0.08)", borderRadius: 10, padding: "10px", textAlign: "center", fontSize: 12, color: "#868686", cursor: "pointer", transition: "all 0.2s", display: "flex", alignItems: "center", justifyContent: "center", gap: 6, boxSizing: "border-box", textDecoration: "none", minWidth: "calc(50% - 5px)" }}
                         onMouseEnter={e => { e.currentTarget.style.background = "rgba(120,120,120,0.08)"; e.currentTarget.style.borderColor = "rgba(120,120,120,0.2)"; e.currentTarget.style.color = "#171717"; }}
                         onMouseLeave={e => { e.currentTarget.style.background = "rgba(23,23,23,0.04)"; e.currentTarget.style.borderColor = "rgba(23,23,23,0.08)"; e.currentTarget.style.color = "#868686"; }}>
-                        {s}
-                      </div>
+                        {s.label}
+                      </a>
                     ))}
                   </div>
                 </div>
