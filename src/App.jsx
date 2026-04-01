@@ -25,9 +25,9 @@ const SPECIALIZATIONS = [
 
 const STATS = [
   { val: 26, suffix: "", label: "Лет стажа" },
-  { val: 1161, suffix: "", label: "Дел завершено" },
-  { val: 20, suffix: "", label: "Уголовных дел" },
-  { val: 15, suffix: "", label: "Гражданских дел" },
+  { val: 2679, suffix: "", label: "Дел завершено" },
+  { val: 1284, suffix: "", label: "Уголовных дел" },
+  { val: 1395, suffix: "", label: "Гражданских дел" },
 ];
 
 const REVIEWS = [
@@ -438,7 +438,7 @@ export default function App() {
             {NAV.map(n => <span key={n.id} className="nav-link" onClick={() => scrollTo(n.id)}>{n.label}</span>)}
           </nav>
           <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
-            <a href="tel:+992000000000" className="d-none-mob" style={{ color: "#868686", textDecoration: "none", fontSize: 14, fontWeight: 600 }}><FaPhoneAlt /> +992 00 000 00 00</a>
+            <a href="tel:+992000000000" className="d-none-mob" style={{ color: "#868686", textDecoration: "none", fontSize: 14, fontWeight: 600 }}><FaPhoneAlt /> +992 93 575 75 03</a>
             <button className="btn-gold" style={{ padding: "10px 22px", fontSize: 13 }} onClick={openModal}>Записаться</button>
           </div>
         </div>
@@ -463,7 +463,7 @@ export default function App() {
               </Reveal>
               <Reveal delay={0.1}>
                 <h1 className="hero-title" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 60, fontWeight: 700, lineHeight: 0.9, letterSpacing: -1, marginBottom: 8, color: "#171717" }}>
-                  Мирзовалиен<br />
+                  Мирзовалиён<br />
                   <span className="shimmer-gold">Хамзабек</span>
                   <br />Хакимзода
                 </h1>
@@ -476,8 +476,12 @@ export default function App() {
                 </div>
               </Reveal>
               <Reveal delay={0.2}>
-                <p style={{ color: "#868686", fontSize: 17, lineHeight: 1.3, marginBottom: 36, maxWidth: 520 }}>
-                  Профессиональная правовая защита по всему Таджикистану. Опыт в гражданском, уголовном, семейном и коммерческом праве. Представление интересов клиентов в судах.
+                <p style={{ color: "#868686", fontSize: 22, lineHeight: 1.3, marginBottom: 36, maxWidth: 520 }}>
+                  Мирзовалиён Хамзабек Хакимзода -
+                  Адвокат с 26-летним опытом практики в  Таджикистане.
+                  Профессиональная защита ваших прав и интересов.
+                  Комплексная юридическая помощь по гражданским, уголовным, семейным, административным и коммерческим делам.
+                  Гарантирую индивидуальный подход и конфиденциальность.
                 </p>
               </Reveal>
               <Reveal delay={0.25}>
@@ -527,10 +531,16 @@ export default function App() {
               </h2>
               <div className="gold-bar" />
               <p style={{ color: "#868686", fontSize: 16, lineHeight: 1.3, marginBottom: 20 }}>
-                Хамзабек Хакимзода — опытный адвокат и юрист с 26-летней практикой. Ведёт дела в области гражданского, уголовного, семейного и коммерческого права по всей территории Таджикистана.
+                Хамзабек Хакимзода — опытный адвокат и юрист с 26-летней юридической практикой.
+                Победитель премии «Топ-50» за вклад в развитие общества.
+                Тренер по международному праву в области защиты прав человека.
+                Ведёт дела в области гражданского, уголовного, семейного и коммерческого права на всей территории Таджикистана.
+
               </p>
               <p style={{ color: "#868686", fontSize: 16, lineHeight: 1.3, marginBottom: 32 }}>
-                Осуществляет представление клиентов во всех судебных инстанциях. Предоставляет правовую помощь в рамках государственной программы legal aid и услуги pro-bono для лиц, нуждающихся в поддержке.
+                Осуществляет представление интересов клиентов во всех судебных инстанциях.
+                Предоставляет правовую помощь в рамках государственной программы legal aid, а также оказывает услуги pro bono для лиц, нуждающихся в поддержке.
+                Проводит платные юридические консультации с индивидуальным разбором ситуации и выработкой эффективной правовой позиции.
               </p>
               <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
                 {[
@@ -691,10 +701,10 @@ export default function App() {
                     </div>
                   </div>
                   {[
-                    { icon: <FaPhoneAlt />, label: "Телефон", val: "+992 00 000 00 00" },
-                    { icon: <MdEmail />, label: "Email", val: "hamzabek@advokat.tj" },
-                    { icon: <FaLocationDot />, label: "Адрес", val: "г. Душанбе, ул. Валаматзода, д. 10" },
-                    { icon: <FaClock />, label: "Режим работы", val: "Пн–Сб: 9:00–18:00" },
+                    { icon: <FaPhoneAlt />, label: "Телефон", val: "+992 93 575 75 03" },
+                    { icon: <MdEmail />, label: "Email", val: "mirzovaliyon@gmail.com" },
+                    { icon: <FaLocationDot />, label: "Адрес", val: "г. Душанбе, ул. Зафар, д. 126" },
+                    { icon: <FaClock />, label: "Режим работы", val: "Пн–Вс: 9:00–18:00" },
                     { icon: <TiWorld />, label: "Территория", val: "По всему Таджикистану" },
                   ].map(item => (
                     <div key={item.label} style={{ display: "flex", gap: 14, alignItems: "flex-start", marginBottom: 20 }}>
@@ -706,8 +716,8 @@ export default function App() {
                     </div>
                   ))}
 
-                  <div style={{ display: "flex", gap: 10, marginTop: 8 }}>
-                    {[<><FaTelegramPlane /> Telegram</>, <><FaSquareInstagram /> Instagram</>].map((s, i) => (
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 8 }}>
+                    {[<><FaTelegramPlane /> Telegram</>, <><FaSquareInstagram /> Instagram</>, <><FaTelegramPlane /> Facebook</>, <><FaTelegramPlane /> WhatsApp</>].map((s, i) => (
                       <div key={i} style={{ flex: 1, background: "rgba(23,23,23,0.04)", border: "1px solid rgba(23,23,23,0.08)", borderRadius: 10, padding: "10px", textAlign: "center", fontSize: 12, color: "#868686", cursor: "pointer", transition: "all 0.2s", display: "flex", alignItems: "center", justifyContent: "center", gap: 6, boxSizing: "border-box" }}
                         onMouseEnter={e => { e.currentTarget.style.background = "rgba(120,120,120,0.08)"; e.currentTarget.style.borderColor = "rgba(120,120,120,0.2)"; e.currentTarget.style.color = "#171717"; }}
                         onMouseLeave={e => { e.currentTarget.style.background = "rgba(23,23,23,0.04)"; e.currentTarget.style.borderColor = "rgba(23,23,23,0.08)"; e.currentTarget.style.color = "#868686"; }}>
@@ -716,6 +726,8 @@ export default function App() {
                     ))}
                   </div>
                 </div>
+
+
               </Reveal>
             </div>
 
